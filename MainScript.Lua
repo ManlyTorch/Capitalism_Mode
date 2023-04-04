@@ -1,7 +1,3 @@
---Enter this above the loadstring
-
---Add any module you dont want deleted
-
 local parts = { 
  'BaseStation', 
  '1-Way Hub', 
