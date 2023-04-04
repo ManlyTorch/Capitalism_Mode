@@ -17,7 +17,7 @@ local parts = {
  'TelescopeModule',
  'OrbitalFabricator',
  'OreStorageBig',
-  'Earth',
+ 'Earth',
  'Moon',
  'Mars',
  'Venus',
