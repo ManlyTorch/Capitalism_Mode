@@ -175,7 +175,6 @@ for i2, v2 in pairs(Shop:GetChildren()) do
 				v.Parent = Newbutton
                 v.Parent.MouseButton1Click:Connect(function()
                     LISTADDREMOVE(v)
-                    print("HI ", v)
                 end)
             end
         end
@@ -256,8 +255,3 @@ local function GUI_Script()
         end
 end
 coroutine.wrap(GUI_Script)()
-while task.wait(10) and true do
-	for i, v in pairs (Settings[1]) do
-		print(v)
-	end
-end
