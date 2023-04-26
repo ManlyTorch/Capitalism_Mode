@@ -55,11 +55,20 @@ local Modules = {
     'Mars',
     'Venus',
     'AmongUs',
+    'Canada',
+    'Britain',
+    'USA',
+    'China',
+    'Europe',
+    'India',
+    'Russia',
+    'Japan',
     'BaseStation'
 }
 local Settings = {
     Modules,
-    CapitalismToggle
+    CapitalismToggle,
+    StationToggle
 }
 
 local filename = "SSI_Capitalism_Settings.txt";
@@ -201,15 +210,29 @@ Capitalism.Font = Enum.Font.SourceSans
 Capitalism.Text = "Capitalism mode: On"
 Capitalism.TextColor3 = Color3.fromRGB(255, 255, 255)
 Capitalism.TextScaled = true
-Capitalism.TextWrapped = true
+Capitalism.TextWrapped = true  
+
+local StationsToggle = Instance.new("TextButton")
    
+StationsToggle.Name = "Stations Toggle"
+StationsToggle.Parent = game.Players.LocalPlayer.PlayerGui.MainGui.Menu.Frame.Settings
+StationsToggle.BackgroundColor3 = Color3.fromRGB(58, 58, 58)
+StationsToggle.BorderColor3 = Color3.fromRGB(120, 120, 120)
+StationsToggle.Position = UDim2.new(0.345842, 0, 0.09416, 0)
+StationsToggle.Size = UDim2.new(0.304503, 0, 0.068417996, 0)
+StationsToggle.Selected = true
+StationsToggle.Font = Enum.Font.SourceSans
+StationsToggle.Text = "Stations Toggle: Off"
+StationsToggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+StationsToggle.TextScaled = true
+StationsToggle.TextWrapped = true
    
-   
-local function GUI_Script()
+local function CapitalismButtonScript()
     local script = Instance.new('LocalScript', Capitalism)
    
     local Capitalism = script.Parent
     local ToggleButton = script.Parent.Parent.Capitalism
+    local StationsToggle = script.Parent.Parent["Stations Toggle"]
    
     local function updateScreen()
         if Settings[2] == true then
@@ -217,9 +240,19 @@ local function GUI_Script()
         else
             Capitalism.Text = "Capitalism Mode: Off"
         end
+        if Settings[3] == true then
+            StationsToggle.Text = "Stations Toggle: On"
+        else
+            StationsToggle.Text = "Stations Toggle: Off"
+        end
     end
     updateScreen()
-       
+    
+    StationsToggle.MouseButton1Click:Connect(function()
+        Settings[3] = not Settings[3]
+        updateScreen()
+        saveSettings()
+    end)
     ToggleButton.MouseButton1Click:Connect(function()
         Settings[2] = not Settings[2]
         updateScreen()
@@ -241,10 +274,21 @@ local function GUI_Script()
         end
         function RemoveParts(P)
             for _, PC in pairs(P:GetChildren()) do
-                PCT = PC:WaitForChild(TO)
-                for _, PCTC in pairs(PCT:GetChildren()) do
-                    if isItemNOTInList(PCTC.Name, Settings[1]) then
-                        PCTC:Destroy()
+                if Settings[3] then
+                    PCT = PC
+                    for _, PCTC in pairs(PCT:GetChildren()) do
+                        for _, v in pairs(PCTC:GetChildren()) do
+                            if isItemNOTInList(v.Name, Settings[1]) then
+                                v:Destroy()
+                            end
+                        end
+                    end
+                else
+                    PCT = PC:WaitForChild(TO)
+                    for _, PCTC in pairs(PCT:GetChildren()) do
+                        if isItemNOTInList(PCTC.Name, Settings[1]) then
+                            PCTC:Destroy()
+                        end
                     end
                 end
             end
@@ -254,4 +298,4 @@ local function GUI_Script()
             end
         end
 end
-coroutine.wrap(GUI_Script)()
+coroutine.wrap(CapitalismButtonScript)()
