@@ -148,14 +148,11 @@ if game.PlaceId == 4918537844 then
         local filename = "SSI_Capitalism_Settings.txt";
 
         function loadSettings()
-            print("loading settings")
             local HttpService = game:GetService("HttpService")
             if (readfile and isfile and isfile(filename)) then
                 Settings = HttpService:JSONDecode(readfile(filename));
-                print("Settings successfully loaded.")
                 return true
             else
-                print("Failed to load")
                 return false
             end
         end
@@ -166,7 +163,6 @@ if game.PlaceId == 4918537844 then
             local json;
             local HttpService = game:GetService("HttpService");
             if (writefile) then
-                print("Saving Settings")
                 json = HttpService:JSONEncode(Settings);
                 writefile(filename, json);
             else
