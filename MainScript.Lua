@@ -1,5 +1,5 @@
 if game.PlaceId == 4918537844 then
-    local MainGui = game.Players.LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("MainGui")
+    local MainGui = game.Players.LocalPlayer.PlayerGui:WaitForChild("MainGui")
     if not MainGui.Menu.Frame.Settings.MuteMusic.Selectable then
         print("You already executed the script!")
     else
@@ -371,6 +371,4 @@ if game.PlaceId == 4918537844 then
         end
         coroutine.wrap(CapitalismButtonScript)()
     end
-else
-    print("This isn't space station infinity why'd you execute this script!?!?")
 end
