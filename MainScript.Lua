@@ -1,5 +1,5 @@
 if game.PlaceId == 4918537844 then
-    local MainGui = game.Players.LocalPlayer.PlayerGui.MainGui
+    local MainGui = game.Players.LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("MainGui")
     if not MainGui.Menu.Frame.Settings.MuteMusic.Selectable then
         print("You already executed the script!")
     else
