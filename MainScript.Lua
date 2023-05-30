@@ -1,5 +1,5 @@
-task.wait(2)
 if game.PlaceId == 4918537844 then
+	task.wait(5)
     local MainGui = game.Players.LocalPlayer.PlayerGui:WaitForChild("MainGui")
     if not MainGui.Menu.Frame.Settings.MuteMusic.Selectable then
         print("You already executed the script!")
@@ -19,7 +19,7 @@ if game.PlaceId == 4918537844 then
         CapitalismConfigButton.Name = "CapitalismConfigButton"
         G = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
         G.Name = "Capitalism Config"
-        CapitalismConfig = game.Players.LocalPlayer.PlayerGui.Shop:Clone()
+        CapitalismConfig = game.Players.LocalPlayer.PlayerGui:WaitForChild("Shop"):Clone()
         CapitalismConfig.Parent = game.Players.LocalPlayer.PlayerGui["Capitalism Config"]
         CapitalismConfigClose = Instance.new("TextButton", game.Players.LocalPlayer.PlayerGui["Capitalism Config"].Shop.Tabs)
         CapitalismConfigClose.TextScaled = true
