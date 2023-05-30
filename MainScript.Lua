@@ -1,3 +1,4 @@
+task.wait(2)
 if game.PlaceId == 4918537844 then
     local MainGui = game.Players.LocalPlayer.PlayerGui:WaitForChild("MainGui")
     if not MainGui.Menu.Frame.Settings.MuteMusic.Selectable then
