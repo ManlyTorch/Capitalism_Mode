@@ -37,6 +37,8 @@ if game.PlaceId == 4918537844 then
                 v:Destroy()
             elseif v.Name == "Info" then
                 v:Destroy()
+	    elseif v.Name == "Notice" then
+		v:Destroy()
             end
         end
         for i, v in pairs(CapitalismConfigButton:GetChildren()) do
