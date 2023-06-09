@@ -1,4 +1,4 @@
-if game.PlaceId == 4918537844 then
+if game.PlaceId == 6019588971 then
 	task.wait(5)
     local MainGui = game.Players.LocalPlayer.PlayerGui:WaitForChild("MainGui")
     if not MainGui.Menu.Frame.Settings.MuteMusic.Selectable then
@@ -17,8 +17,8 @@ if game.PlaceId == 4918537844 then
         CapitalismConfigButton.BorderSizePixel = 1
         CapitalismConfigButton.TextColor3 = Color3.fromRGB(255, 255, 255)
         CapitalismConfigButton.Name = "CapitalismConfigButton"
-        G = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
-        G.Name = "Capitalism Config"
+        ScreenGui = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
+        ScreenGui.Name = "Capitalism Config"
         CapitalismConfig = game.Players.LocalPlayer.PlayerGui:WaitForChild("Shop"):Clone()
         CapitalismConfig.Parent = game.Players.LocalPlayer.PlayerGui["Capitalism Config"]
         CapitalismConfigClose = Instance.new("TextButton", game.Players.LocalPlayer.PlayerGui["Capitalism Config"].Shop.Tabs)
@@ -37,8 +37,8 @@ if game.PlaceId == 4918537844 then
                 v:Destroy()
             elseif v.Name == "Info" then
                 v:Destroy()
-	    elseif v.Name == "Notice" then
-		v:Destroy()
+	    	elseif v.Name == "Notice" then
+				v:Destroy()
             end
         end
         for i, v in pairs(CapitalismConfigButton:GetChildren()) do
@@ -147,7 +147,6 @@ if game.PlaceId == 4918537844 then
             CapitalismToggle,
             StationToggle
         }
-
         local filename = "SSI_Capitalism_Settings.txt";
 
         function loadSettings()
@@ -373,5 +372,19 @@ if game.PlaceId == 4918537844 then
                 end
         end
         coroutine.wrap(CapitalismButtonScript)()
+		function UpdateModuleList()
+			for i1,v1 in pairs(Shop:GetChildren()) do
+				if v1.Name ~= "Tabs" then
+					for i2,v2 in pairs(v1.FixFrame:GetChildren()) do
+						for i3,v3 in pairs(v2:GetChildren()) do
+							if v3:IsA("ViewportFrame") then
+								v3.Visible = true
+							end
+						end
+					end
+				end
+			end
+		end
+		UpdateModuleList()
     end
 end
