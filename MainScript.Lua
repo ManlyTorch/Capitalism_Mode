@@ -17,11 +17,11 @@ if game.PlaceId == 4918537844 then
         CapitalismConfigButton.BorderSizePixel = 1
         CapitalismConfigButton.TextColor3 = Color3.fromRGB(255, 255, 255)
         CapitalismConfigButton.Name = "CapitalismConfigButton"
-        ScreenGui = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
+        ScreenGui = Instance.new("ScreenGui", game.CoreGui)
         ScreenGui.Name = "Capitalism Config"
         CapitalismConfig = game.Players.LocalPlayer.PlayerGui:WaitForChild("Shop"):Clone()
-        CapitalismConfig.Parent = game.Players.LocalPlayer.PlayerGui["Capitalism Config"]
-        CapitalismConfigClose = Instance.new("TextButton", game.Players.LocalPlayer.PlayerGui["Capitalism Config"].Shop.Tabs)
+        CapitalismConfig.Parent = ScreenGui
+        CapitalismConfigClose = Instance.new("TextButton", CapitalismConfig.Tabs)
         CapitalismConfigClose.TextScaled = true
         CapitalismConfigClose.Position = UDim2.new(1.005116959064327, 0, 0.8332098948303955, 0)
         CapitalismConfigClose.BackgroundColor3 = Color3.fromRGB(150, 18, 18)
@@ -37,8 +37,8 @@ if game.PlaceId == 4918537844 then
                 v:Destroy()
             elseif v.Name == "Info" then
                 v:Destroy()
-	    	elseif v.Name == "Notice" then
-				v:Destroy()
+            elseif v.Name == "Notice" then
+               v:Destroy()
             end
         end
         for i, v in pairs(CapitalismConfigButton:GetChildren()) do
@@ -76,43 +76,41 @@ if game.PlaceId == 4918537844 then
         end
         local function CapitalismConfigButtonScript()
             local CapitalismScript = Instance.new("LocalScript", CapitalismConfigButton)
-            local CapitalismConfig = game.Players.LocalPlayer.PlayerGui:WaitForChild("Capitalism Config")
-            local BUTTON = MainGui.Menu.Frame.Settings.CapitalismConfigButton
             MainGui.Menu.MouseButton1Click:Connect(function()
-                CapitalismConfig.Shop.Enabled = false
+                CapitalismConfig.Enabled = false
                 Check("Menu")
             end)
             MainGui.Manage.MouseButton1Click:Connect(function()
-                CapitalismConfig.Shop.Enabled = false
+               CapitalismConfig.Enabled = false
                 Check("Manage")
             end)
             MainGui.Bank.MouseButton1Click:Connect(function()
-                CapitalismConfig.Shop.Enabled = false
+               CapitalismConfig.Enabled = false
                 Check("Bank")
             end)
             MainGui.Edit.MouseButton1Click:Connect(function()
-                CapitalismConfig.Shop.Enabled = false
+               CapitalismConfig.Enabled = false
                 Check("Edit")
             end)
             MainGui.Research.MouseButton1Click:Connect(function()
-                CapitalismConfig.Shop.Enabled = false
+               CapitalismConfig.Enabled = false
                 Check("Research")
             end)
             CapitalismConfigClose.MouseButton1Click:Connect(function()
-                CapitalismConfig.Shop.Enabled = false
+               CapitalismConfig.Enabled = false
             end)
             MainGui.Menu.Frame.Frame.SpaceAgency.MouseButton1Click:Connect(function()
-                CapitalismConfig.Shop.Enabled = false
+               CapitalismConfig.Enabled = false
             end)
             MainGui.Menu.Frame.Frame.Feedback.MouseButton1Click:Connect(function()
-                CapitalismConfig.Shop.Enabled = false
+               CapitalismConfig.Enabled = false
             end)
-            BUTTON.MouseButton1Click:Connect(function()
-                CapitalismConfig.Shop.Enabled = not CapitalismConfig.Shop.Enabled
+            CapitalismConfigButton.MouseButton1Click:Connect(function()
+               CapitalismConfig.Enabled = not CapitalismConfig.Enabled
             end)
         end
         coroutine.wrap(CapitalismConfigButtonScript)()
-        for i, v in pairs(game.Players.LocalPlayer.PlayerGui["Capitalism Config"].Shop:GetChildren()) do
+        for i, v in pairs(CapitalismConfig:GetChildren()) do
             for i2, v2 in pairs(v:GetChildren()) do
                 for i3, v3 in pairs (v2:GetChildren()) do
                     for i4, v4 in pairs (v3:GetChildren()) do
@@ -123,9 +121,7 @@ if game.PlaceId == 4918537844 then
                 end
             end
         end
-        local Shop = game.Players.LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("Capitalism Config").Shop
         local UIS = game:GetService("UserInputService")
-        local GG = false
         local Modules = {
             'Earth',
             'Moon',
@@ -240,7 +236,7 @@ if game.PlaceId == 4918537844 then
             end
         end
 
-        for i2, v2 in pairs(Shop:GetChildren()) do
+        for i2, v2 in pairs(CapitalismConfig:GetChildren()) do
             if v2.Name ~= "Tabs" and v2.Name ~= "Info" and v2.Name ~= "LocalScript" and v2.Name ~= "ModuleViewerHandler" then
                 for i, v in pairs(v2.FixFrame:GetChildren()) do
                     if v.Name ~= "UIGridLayout" and v.Name ~= "UIPadding" then
@@ -373,7 +369,7 @@ if game.PlaceId == 4918537844 then
         end
         coroutine.wrap(CapitalismButtonScript)()
 		function UpdateModuleList()
-			for i1,v1 in pairs(Shop:GetChildren()) do
+			for i1,v1 in pairs(CapitalismConfig:GetChildren()) do
 				if v1.Name ~= "Tabs" then
 					for i2,v2 in pairs(v1.FixFrame:GetChildren()) do
 						for i3,v3 in pairs(v2:GetChildren()) do
