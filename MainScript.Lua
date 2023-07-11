@@ -316,7 +316,7 @@ if game.PlaceId == 4918537844 then
                                 end
                             end
                         else
-                            PCT = PC:WaitForChild(TO)
+                            PCT = PC:WaitForChild(TeamName)
                             for _, PCTC in pairs(PCT:GetChildren()) do
                                 if isItemNOTInList(PCTC.Name, Settings[1]) then
                                     PCTC:Destroy()
