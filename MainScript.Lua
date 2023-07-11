@@ -4,6 +4,7 @@ if game.PlaceId == 4918537844 then
     if not MainGui.Menu.Frame.Settings.MuteMusic.Selectable then
         print("You already executed the script!")
     else
+    	game.ReplicatedStorage.Functions.GetModuleInventory:InvokeServer()
         MainGui.Menu.Frame.Settings.MuteMusic.Selectable = false
         CapitalismConfigButton = Instance.new("TextButton", MainGui.Menu.Frame.Settings)
         CapitalismConfigButton.BackgroundColor3 = Color3.fromRGB(58, 58, 58)
@@ -44,58 +45,8 @@ if game.PlaceId == 4918537844 then
         for i, v in pairs(CapitalismConfigButton:GetChildren()) do
             v:Destroy()
         end
-        local function Check(Item)
-            if Item == "Manage" then
-                MainGui.Parent.Shop.Enabled = false
-                MainGui.Parent.ResGUI.MainFrame.Visible = false
-                MainGui.Bank.Frame.Visible = false
-                MainGui.Menu.Frame.Visible = false
-            elseif Item == "Menu" then
-                MainGui.Manage.Stats.Visible = false
-                MainGui.Parent.Shop.Enabled = false
-                MainGui.Parent.ResGUI.MainFrame.Visible = false
-                MainGui.Bank.Frame.Visible = false
-            elseif Item == "Bank" then
-                MainGui.Manage.Stats.Visible = false
-                MainGui.Parent.Shop.Enabled = false
-                MainGui.Parent.ResGUI.MainFrame.Visible = false
-                MainGui.Menu.Frame.Visible = false
-            elseif Item == "Edit" then
-                MainGui.Manage.Stats.Visible = false
-                MainGui.Parent.ResGUI.MainFrame.Visible = false
-                MainGui.Bank.Frame.Visible = false
-                MainGui.Menu.Frame.Visible = false
-            elseif Item == "Research" then
-                MainGui.Manage.Stats.Visible = false
-                MainGui.Parent.Shop.Enabled = false
-                MainGui.Bank.Frame.Visible = false
-                MainGui.Menu.Frame.Visible = false
-            else
-                warn("Uh oh I messed up error code: 1")
-            end
-        end
         local function CapitalismConfigButtonScript()
             local CapitalismScript = Instance.new("LocalScript", CapitalismConfigButton)
-            MainGui.Menu.MouseButton1Click:Connect(function()
-                CapitalismConfig.Enabled = false
-                Check("Menu")
-            end)
-            MainGui.Manage.MouseButton1Click:Connect(function()
-               CapitalismConfig.Enabled = false
-                Check("Manage")
-            end)
-            MainGui.Bank.MouseButton1Click:Connect(function()
-               CapitalismConfig.Enabled = false
-                Check("Bank")
-            end)
-            MainGui.Edit.MouseButton1Click:Connect(function()
-               CapitalismConfig.Enabled = false
-                Check("Edit")
-            end)
-            MainGui.Research.MouseButton1Click:Connect(function()
-               CapitalismConfig.Enabled = false
-                Check("Research")
-            end)
             CapitalismConfigClose.MouseButton1Click:Connect(function()
                CapitalismConfig.Enabled = false
             end)
@@ -110,15 +61,9 @@ if game.PlaceId == 4918537844 then
             end)
         end
         coroutine.wrap(CapitalismConfigButtonScript)()
-        for i, v in pairs(CapitalismConfig:GetChildren()) do
-            for i2, v2 in pairs(v:GetChildren()) do
-                for i3, v3 in pairs (v2:GetChildren()) do
-                    for i4, v4 in pairs (v3:GetChildren()) do
-                        if v4.Name == "Cost" then
-                            v4:Destroy()
-                        end
-                    end
-                end
+        for i, v in pairs(CapitalismConfig:GetDescendants()) do
+            if v.Name == "Cost" then
+                v:Destroy()
             end
         end
         local UIS = game:GetService("UserInputService")
@@ -165,14 +110,6 @@ if game.PlaceId == 4918537844 then
                 writefile(filename, json);
             else
                 print("Your executor isn't supported (you can still use the script, settings won't save though)")
-            end
-        end
-
-        local function TextLabelThing(List)
-            for i, v in pairs(List:GetChildren()) do
-                if v:IsA("TextLabel") then
-                    Text = v
-                end
             end
         end
 
@@ -295,7 +232,34 @@ if game.PlaceId == 4918537844 then
         StationsToggle.TextColor3 = Color3.fromRGB(255, 255, 255)
         StationsToggle.TextScaled = true
         StationsToggle.TextWrapped = true
+        local TabMainLocations = game.CoreGui["Capitalism Config"].Shop.Tabs
+        local Tabs = {
+            "Inventory",
+            "ISSParts",
+            "Gamepass",
+            "Ships",
+            "Mining",
+            "Spacecraft",
+            "PowerGeneration",
+            "Structural",
+            "Other"
+        }
         
+        local function Close()
+            for i = 1, 9, 1 do
+                TabMainLocations.Parent[Tabs[i]].Visible = false
+                TabMainLocations[Tabs[i]].TextColor3 = Color3.fromRGB(121, 121, 121)
+            end
+        end
+
+        for i = 1, 9, 1 do
+            TabMainLocations[Tabs[i]].MouseButton1Click:Connect(function()
+                Close()
+                TabMainLocations.Parent[Tabs[i]].Visible = true
+                TabMainLocations[Tabs[i]].TextColor3 = Color3.fromRGB(255, 255, 255)
+            end)
+        end
+
         local function CapitalismButtonScript()
             local script = Instance.new('LocalScript', Capitalism)
         
@@ -329,8 +293,7 @@ if game.PlaceId == 4918537844 then
             end)
             while task.wait(0.2) and true do
                 local plr = game.Players.LocalPlayer
-                local Team = game:GetService("Teams")
-                local TO = plr.Team.Name
+                local TeamName = plr.Team.Name
 
                 local Parts = game.Workspace.Stations
                 function isItemNOTInList(item, list)
